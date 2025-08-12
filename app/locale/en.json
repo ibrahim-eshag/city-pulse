@@ -1,0 +1,56 @@
+{
+  "settings": {
+    "settings": "Settings",
+    "changeLanguage": "Change Language",
+    "darkTheme": "Dark Theme",
+    "notifications": "Notifications",
+    "contactUs": "Contact us",
+    "termsAndConditions": "Terms & conditions",
+    "wallet": "Wallet",
+    "balance": "Balance",
+    "debt": "Debt"
+  },
+  "mobile": {
+    "mobilePlaceholder": "Enter mobile number",
+    "tip": "Enter the mobile number",
+    "getCode": "Get a code"
+  },
+  "home": {
+    "home": "Home"
+  },
+  "localEvents": {
+    "event": "Event"
+  },
+  "profile": {
+    "editProfile": "Edit Profile",
+    "male": "Male",
+    "female": "Female",
+    "logoutConfirm": "Confirm Logout?",
+    "updatedSuccess": "Profile updated Successfully."
+  },
+  "value": "Value",
+  "SAR": "SAR",
+  "loading": "Loading...",
+  "mobileNumber": "Mobile Number",
+  "email": "Email",
+  "registration": "Registration",
+  "username": "Name",
+  "gender": "Gender",
+  "save": "Save",
+  "logout": "Log out",
+  "agreeToTermsAndConditions": "I agree to the terms and conditions",
+  "pleaseAgreeToTermsAndConditions": "Please agree to the terms and conditions",
+  "register": "Register",
+  "birthDate": "Birth Date",
+  "otpSentToNumber": "The OTP Was sent to the Number",
+  "enterYourCode": "Enter Your Code",
+  "continue": "Continue",
+  "yes": "Yes",
+  "no": "No",
+  "deliveredThrough": "Delivered through",
+  "redeemable": "Redeemable",
+  "backHome": "Back to Home",
+  "about_us": "About Us",
+  "our_services": "Our Services",
+  "home": "Home"
+}

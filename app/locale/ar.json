@@ -1,0 +1,55 @@
+{
+  "settings": {
+    "settings": "الضبط",
+    "changeLanguage": "تغيير اللغة",
+    "darkTheme": "الوضع الداكن",
+    "notifications": "الإشعارات",
+    "contactUs": "اتصل بنا",
+    "termsAndConditions": "الأحكام والشروط",
+    "wallet": "المحفظة",
+    "balance": "الرصيد",
+    "debt": "المديونية"
+  },
+  "mobile": {
+    "mobilePlaceholder": "أدخل رقم الجوال",
+    "tip": "أدخل رقم الجوال",
+    "getCode": "أحصل على رمز الاستجابة"
+  },
+  "home": {
+    "home": "الرئيسية"
+  },
+  "localEvents": {
+    "event": "الحدث"
+  },
+  "profile": {
+    "editProfile": "تعديل المعلومات الشخصية",
+    "male": "ذكر",
+    "female": "أنثى",
+    "logoutConfirm": "تأكيد تسجيل الخروج؟",
+    "updatedSuccess": "تم التحديث بنجاح"
+  },
+  "value": "القيمة",
+  "SAR": "ريال",
+  "loading": "جاري التحميل...",
+  "mobileNumber": "رقم الجوال",
+  "email": "البريد الإلكتروني",
+  "username": "الإسم",
+  "gender": "الحنس",
+  "save": "حفظ",
+  "registration": "تسجبل حساب",
+  "logout": "تسجبل الخروج",
+  "agreeToTermsAndConditions": "أوافق على الشروط والأحكام",
+  "pleaseAgreeToTermsAndConditions": "يرجى الموافقة على الشروط والأحكام",
+  "register": "سجل حساب جديد",
+  "birthDate": "تاريخ الملاد",
+  "otpSentToNumber": "تم إرسال رمز الإستجابة للرقم",
+  "enterYourCode": "أدخل رمز الإستجابة",
+  "continue": "إستمر",
+  "yes": "نعم",
+  "no": "لا",
+  "deliveredThrough": "",
+  "backHome": "العودة إلى الرئيسية",
+  "about_us": "من نحن",
+  "our_services": "خدماتنا",
+  "home": "الرئيسية"
+}
