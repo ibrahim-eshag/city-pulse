@@ -4,24 +4,31 @@ export enum LocalEventActionType {
   LIST_ATTEMPT = "EVENT_LIST_ATTEMPT",
   LIST_SUCCESS = "EVENT_LIST_SUCCESS",
   LIST_FAILED = "EVENT_LIST_FAILED",
+  FAVORITES_UPDATE = "EVENT_FAVORITES_UPDATE",
 }
 
-interface LocalEventAttemptType {
-  type: typeof LocalEventActionType.LIST_ATTEMPT;
+export interface LocalEventAttemptType {
+  type: LocalEventActionType.LIST_ATTEMPT;
 }
 
-interface LocalEventSuccessType {
-  type: typeof LocalEventActionType.LIST_SUCCESS;
+export interface LocalEventSuccessType {
+  type: LocalEventActionType.LIST_SUCCESS;
   localEvents: LocalEvent[];
   append?: boolean;
 }
 
-interface LocalEventFailedType {
-  type: typeof LocalEventActionType.LIST_FAILED;
+export interface LocalEventFailedType {
+  type: LocalEventActionType.LIST_FAILED;
   error: string;
+}
+
+export interface LocalEventFavoritesUpdateType {
+  type: LocalEventActionType.FAVORITES_UPDATE;
+  favorites: string[];
 }
 
 export type LocalEventActionsType =
   | LocalEventAttemptType
   | LocalEventSuccessType
-  | LocalEventFailedType;
+  | LocalEventFailedType
+  | LocalEventFavoritesUpdateType;

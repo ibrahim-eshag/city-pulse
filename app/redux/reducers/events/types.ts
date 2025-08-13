@@ -4,4 +4,5 @@ export type CatalogState = {
   localEvents: LocalEvent[];
   loading: boolean;
   error?: string;
+  favorites: string[];
 };

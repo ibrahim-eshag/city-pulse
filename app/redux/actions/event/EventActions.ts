@@ -1,13 +1,22 @@
-import { Dispatch } from "@reduxjs/toolkit";
+import { Storage } from "@/app/services/storage/storage";
 
 import { ApiEndPoint } from "@/app/constants/api-endpoints";
 import { doNothing } from "@/app/models/utils/helpers/DoNothing";
 import { ApiClient } from "@/app/services/api/api-client";
 import { Internet } from "@/app/services/network";
+import { Dispatch } from "@reduxjs/toolkit";
 import { AppAction, GetState } from "../types";
 import { LocalEventActionType } from "./types";
 
 export class LocalEventActions {
+  /**
+   * Update favorites in store and persist to local storage
+   */
+  static updateFavorites =
+    (favorites: string[]) => async (dispatch: Dispatch<AppAction>) => {
+      await new Storage().save("favorites", favorites);
+      dispatch({ type: LocalEventActionType.FAVORITES_UPDATE, favorites });
+    };
   /**
    * Fetch events from Ticketmaster API with optional city, keyword, paging
    * @param params { cityName?: string, keyword?: string, page?: number, pageSize?: number }

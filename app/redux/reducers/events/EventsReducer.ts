@@ -8,6 +8,7 @@ const initialState: CatalogState = {
   localEvents: [],
   loading: false,
   error: undefined,
+  favorites: [],
 };
 
 export const EventsReducer = (
@@ -34,6 +35,8 @@ export const EventsReducer = (
     case LocalEventActionType.LIST_FAILED:
       return { ...state, loading: false, error: action.error };
 
+    case LocalEventActionType.FAVORITES_UPDATE:
+      return { ...state, favorites: action.favorites };
     default:
       return state;
   }

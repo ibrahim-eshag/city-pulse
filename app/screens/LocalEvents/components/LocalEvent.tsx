@@ -1,6 +1,13 @@
-import React from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet, I18nManager } from "react-native";
 import { LocalEvent } from "@/app/models/event/Event";
+import React from "react";
+import {
+  I18nManager,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 interface Props {
   event: LocalEvent;
@@ -10,23 +17,41 @@ interface Props {
   language: "en" | "ar";
 }
 
-export const LocalEventComponent: React.FC<Props> = ({ event, isFavorite, onToggleFavorite, onPress, language }) => {
+export const LocalEventComponent: React.FC<Props> = ({
+  event,
+  isFavorite,
+  onToggleFavorite,
+  onPress,
+  language,
+}) => {
   const mainImage = event.images?.[0]?.url;
   const eventDate = event.dates?.start?.localDate;
   const eventTime = event.dates?.start?.localTime;
   const venue = event._embedded?.venues?.[0]?.name;
 
   return (
-    <TouchableOpacity style={[styles.card, I18nManager.isRTL && styles.rtl]} onPress={onPress}>
+    <TouchableOpacity
+      style={[styles.card, I18nManager.isRTL && styles.rtl]}
+      onPress={onPress}
+    >
       {mainImage && (
-        <Image source={{ uri: mainImage }} style={styles.image} resizeMode="cover" />
+        <Image
+          source={{ uri: mainImage }}
+          style={styles.image}
+          resizeMode="cover"
+        />
       )}
       <View style={styles.info}>
-        <Text style={styles.name}>{event.name}</Text>
+        <Text style={styles.name} numberOfLines={1} ellipsizeMode="tail">
+          {event.name}
+        </Text>
         <Text style={styles.details}>
           {eventDate} {eventTime} {venue ? `• ${venue}` : ""}
         </Text>
-        <TouchableOpacity onPress={() => onToggleFavorite(event.id)} style={styles.favorite}>
+        <TouchableOpacity
+          onPress={() => onToggleFavorite(event.id)}
+          style={styles.favorite}
+        >
           <Text style={{ fontSize: 20 }}>{isFavorite ? "★" : "☆"}</Text>
         </TouchableOpacity>
       </View>
@@ -65,6 +90,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 4,
+    maxWidth: "85%",
   },
   details: {
     fontSize: 14,

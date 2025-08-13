@@ -1,5 +1,4 @@
-import { AppState } from "@/app/redux";
-import { LocalEventActions } from "@/app/redux/actions/event/EventActions";
+import { useRouter } from "expo-router";
 import React, { useCallback, useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -13,6 +12,10 @@ import {
   View,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+
+import { AppState } from "@/app/redux";
+import { LocalEventActions } from "@/app/redux/actions/event/EventActions";
+import { Storage } from "@/app/services/storage/storage";
 import { CityPicker } from "./components/CityPicker";
 import { LocalEventComponent } from "./components/LocalEvent";
 
@@ -24,10 +27,13 @@ export default function LocalEventsScreen() {
   const loading = useSelector(
     (state: AppState) => state.localEvents?.loading || false
   );
+  const router = useRouter();
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
   const [selectedDmaid, setSelectedDmaid] = useState<string>("");
-  const [favorites, setFavorites] = useState<string[]>([]);
+  const favorites = useSelector(
+    (state: AppState) => state.localEvents?.favorites || []
+  );
   const [language, setLanguage] = useState<"en" | "ar">("en");
 
   // Helper to get city name from dmaid (assuming cities.json is available)
@@ -42,7 +48,6 @@ export default function LocalEventsScreen() {
     }
   };
 
-  // Fetch events from Ticketmaster API via Redux
   // Fetch events: reset on new search/city/language, append on scroll
   const fetchEvents = useCallback(
     (reset = false) => {
@@ -79,11 +84,24 @@ export default function LocalEventsScreen() {
     }
   };
 
-  const toggleFavorite = (id: string) => {
-    setFavorites((favs) =>
-      favs.includes(id) ? favs.filter((f) => f !== id) : [...favs, id]
-    );
+  const toggleFavorite = async (id: string) => {
+    let updated: string[];
+    if (favorites.includes(id)) {
+      updated = favorites.filter((f) => f !== id);
+    } else {
+      updated = [...favorites, id];
+    }
+    await dispatch(LocalEventActions.updateFavorites(updated));
   };
+  // Load favorites from storage on mount
+  useEffect(() => {
+    (async () => {
+      const stored = await new Storage().get("favorites");
+      if (Array.isArray(stored)) {
+        dispatch(LocalEventActions.updateFavorites(stored));
+      }
+    })();
+  }, [dispatch]);
 
   const switchLanguage = () => {
     setLanguage((l) => (l === "en" ? "ar" : "en"));
@@ -96,6 +114,7 @@ export default function LocalEventsScreen() {
   return (
     <View style={styles.container}>
       <SafeAreaView>
+        <Text style={styles.title}>City Pulse</Text>
         <View style={styles.header}>
           <TextInput
             style={styles.input}
@@ -121,7 +140,10 @@ export default function LocalEventsScreen() {
               isFavorite={favorites.includes(item.id)}
               onToggleFavorite={toggleFavorite}
               onPress={() => {
-                /* navigate to details */
+                router.push({
+                  pathname: "/screens/LocalEvents/[eventId]",
+                  params: { eventId: item.id },
+                });
               }}
               language={language}
             />
@@ -139,6 +161,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f5f5f5",
+  },
+  title: {
+    textAlign: "center",
+    fontSize: 24,
+    fontWeight: "bold",
+    marginVertical: 10,
   },
   header: {
     flexDirection: "row",
