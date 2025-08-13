@@ -1,14 +1,13 @@
+import { ApiEndPoint } from "@/app/constants/api-endpoints";
+import { Locale } from "@/app/locale";
+import Store from "@/app/redux";
+import { AuthStorage } from "@/app/services/storage/auth";
 import axios, {
   AxiosError,
   // AxiosRequestConfig,
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
-import { ApiEndPoint } from "@/app/constants/api-endpoints";
-import Store from "@/app/redux";
-import { Locale } from "@/app/locale";
-import { AuthStorage } from "@/app/services/storage/auth";
-import RNRestart from "react-native-restart";
 
 const authStorage = new AuthStorage();
 
@@ -19,9 +18,9 @@ const authHeader = () => ({
 const Client = axios.create({
   baseURL: ApiEndPoint.BASE_URL,
   headers: {
-    "X-App-Client-Id": "PUBLIC_APP",
-    "X-App-Client-Secret":
-      "fdc127e7894a15e779c8bae05c1b3c5d5aed4eb4468b9c4e5c75f03ec39d7b2d",
+    // "X-App-Client-Id": "PUBLIC_APP",
+    // "X-App-Client-Secret":
+    //   "fdc127e7894a15e779c8bae05c1b3c5d5aed4eb4468b9c4e5c75f03ec39d7b2d",
     // ...authHeader()
   },
 });
@@ -82,20 +81,20 @@ Client.interceptors.request.use(async (config) => {
   const { headers } = config;
   const token = await authStorage.getToken();
 
-  if (token) {
-    requestConfig.headers = new axios.AxiosHeaders({
-      ...headers,
-      Authorization: `Bearer ${token}`,
-    });
-  } else {
-    const basicAuthCredentials = btoa(
-      "PUBLIC_APP:fdc127e7894a15e779c8bae05c1b3c5d5aed4eb4468b9c4e5c75f03ec39d7b2d"
-    );
-    requestConfig.headers = new axios.AxiosHeaders({
-      ...headers,
-      Authorization: `Basic ${basicAuthCredentials}`,
-    });
-  }
+  // if (token) {
+  //   requestConfig.headers = new axios.AxiosHeaders({
+  //     ...headers,
+  //     Authorization: `Bearer ${token}`,
+  //   });
+  // } else {
+  //   const basicAuthCredentials = btoa(
+  //     "PUBLIC_APP:fdc127e7894a15e779c8bae05c1b3c5d5aed4eb4468b9c4e5c75f03ec39d7b2d"
+  //   );
+  //   requestConfig.headers = new axios.AxiosHeaders({
+  //     ...headers,
+  //     Authorization: `Basic ${basicAuthCredentials}`,
+  //   });
+  // }
   return requestConfig;
 });
 
@@ -129,7 +128,7 @@ Client.interceptors.response.use(
       if (response.status === 401) {
         console.log("UNAUTHORIZED interceptor");
         authStorage.clear();
-        RNRestart.restart();
+        // RNRestart.Restart();
         return;
       }
       if (response.status > 300 && response.status < 500) {

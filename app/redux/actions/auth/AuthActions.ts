@@ -129,7 +129,7 @@ export class AuthActions {
       } else {
         const storage = new Storage();
         await storage.clearStorage();
-        RNRestart.restart();
+        RNRestart.Restart();
         // Updates.reloadAsync();
       }
     } catch (error: any) {
@@ -198,7 +198,7 @@ export class AuthActions {
             profile: response.data,
           });
           cb(true);
-          RNRestart.restart();
+          RNRestart.Restart();
         }
       } catch (error: any) {
         console.log("🚀 AuthActions ~ update profile ~ error:", error);

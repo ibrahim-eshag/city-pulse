@@ -1,4 +1,3 @@
-import { IError } from "@/app/models/errors";
 import { LocalEvent } from "@/app/models/event/Event";
 
 export enum LocalEventActionType {
@@ -13,12 +12,13 @@ interface LocalEventAttemptType {
 
 interface LocalEventSuccessType {
   type: typeof LocalEventActionType.LIST_SUCCESS;
-  appCategories: LocalEvent[];
+  localEvents: LocalEvent[];
+  append?: boolean;
 }
 
 interface LocalEventFailedType {
   type: typeof LocalEventActionType.LIST_FAILED;
-  error: IError;
+  error: string;
 }
 
 export type LocalEventActionsType =

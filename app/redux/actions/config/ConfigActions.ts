@@ -13,6 +13,6 @@ export class ConfigActions {
       await Locale.setLocale(language);
 
       // restart the app
-      RNRestart.restart();
+      RNRestart.Restart();
     };
 }

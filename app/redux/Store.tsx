@@ -4,7 +4,7 @@ import AuthReducer from "./reducers/auth";
 
 export const reducer = combineReducers({
   auth: AuthReducer,
-  events: EventsReducer,
+  localEvents: EventsReducer,
 });
 
 export const Store = configureStore({

@@ -5,7 +5,7 @@ import {
 import { CatalogState } from "@/app/redux/reducers/events/types";
 
 const initialState: CatalogState = {
-  events: [],
+  localEvents: [],
   loading: false,
   error: undefined,
 };
@@ -16,12 +16,17 @@ export const EventsReducer = (
 ): CatalogState => {
   switch (action.type) {
     case LocalEventActionType.LIST_ATTEMPT:
-      return { ...state, loading: true, error: undefined, events: [] };
+      // Do not clear localEvents on paging, only on reset
+      return { ...state, loading: true, error: undefined };
 
     case LocalEventActionType.LIST_SUCCESS:
+      // If paging, append; if reset, replace
       return {
         ...state,
-        events: action.appCategories,
+        localEvents:
+          action.append && Array.isArray(state.localEvents)
+            ? [...state.localEvents, ...action.localEvents]
+            : action.localEvents,
         loading: false,
         error: undefined,
       };

@@ -1,8 +1,7 @@
-import { IError } from "@/app/models/errors";
 import { LocalEvent } from "@/app/models/event/Event";
 
 export type CatalogState = {
-  events: LocalEvent[];
+  localEvents: LocalEvent[];
   loading: boolean;
-  error?: IError;
+  error?: string;
 };
