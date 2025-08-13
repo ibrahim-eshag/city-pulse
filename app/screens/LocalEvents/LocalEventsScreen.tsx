@@ -12,6 +12,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 import { Locale } from "@/app/locale";
+import { LocalEvent } from "@/app/models/event/Event";
 import { AppState } from "@/app/redux";
 import { ConfigActions } from "@/app/redux/actions/config/ConfigActions";
 import { LocalEventActions } from "@/app/redux/actions/event/EventActions";
@@ -94,11 +95,13 @@ export default function LocalEventsScreen() {
   };
 
   const toggleFavorite = async (id: string) => {
-    let updated: string[];
-    if (favorites.includes(id)) {
-      updated = favorites.filter((f) => f !== id);
+    let updated: LocalEvent[];
+    const eventObj = events.find((e) => e.id === id);
+    if (!eventObj) return;
+    if (favorites.some((f: LocalEvent) => f.id === id)) {
+      updated = favorites.filter((f: LocalEvent) => f.id !== id);
     } else {
-      updated = [...favorites, id];
+      updated = [...favorites, eventObj];
     }
     await dispatch(LocalEventActions.updateFavorites(updated));
   };
@@ -155,7 +158,7 @@ export default function LocalEventsScreen() {
           renderItem={({ item }) => (
             <LocalEventComponent
               event={item}
-              isFavorite={favorites.includes(item.id)}
+              isFavorite={favorites.includes(item)}
               onToggleFavorite={toggleFavorite}
               onPress={() => {
                 router.push({

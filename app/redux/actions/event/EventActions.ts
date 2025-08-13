@@ -1,6 +1,7 @@
 import { Storage } from "@/app/services/storage/storage";
 
 import { ApiEndPoint } from "@/app/constants/api-endpoints";
+import { LocalEvent } from "@/app/models/event/Event";
 import { doNothing } from "@/app/models/utils/helpers/DoNothing";
 import { ApiClient } from "@/app/services/api/api-client";
 import { Internet } from "@/app/services/network";
@@ -13,7 +14,7 @@ export class LocalEventActions {
    * Update favorites in store and persist to local storage
    */
   static updateFavorites =
-    (favorites: string[]) => async (dispatch: Dispatch<AppAction>) => {
+    (favorites: LocalEvent[]) => async (dispatch: Dispatch<AppAction>) => {
       await new Storage().save("favorites", favorites);
       dispatch({ type: LocalEventActionType.FAVORITES_UPDATE, favorites });
     };

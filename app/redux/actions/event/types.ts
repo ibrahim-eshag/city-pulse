@@ -1,5 +1,3 @@
-import { LocalEvent } from "@/app/models/event/Event";
-
 export enum LocalEventActionType {
   LIST_ATTEMPT = "EVENT_LIST_ATTEMPT",
   LIST_SUCCESS = "EVENT_LIST_SUCCESS",
@@ -24,7 +22,7 @@ export interface LocalEventFailedType {
 
 export interface LocalEventFavoritesUpdateType {
   type: LocalEventActionType.FAVORITES_UPDATE;
-  favorites: string[];
+  favorites: LocalEvent[];
 }
 
 export type LocalEventActionsType =
