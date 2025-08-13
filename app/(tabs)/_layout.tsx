@@ -31,8 +31,12 @@ export default function TabLayout() {
         name="index"
         options={{
           title: Locale.strings("home.home"),
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="house.fill" color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <IconSymbol
+              size={28}
+              name={focused ? "house.fill" : "house"}
+              color={color}
+            />
           ),
         }}
       />
@@ -40,8 +44,12 @@ export default function TabLayout() {
         name="favorites"
         options={{
           title: Locale.strings("favorites"),
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="heart.fill" color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <IconSymbol
+              size={28}
+              name={focused ? "heart.circle.fill" : "heart.circle"}
+              color={color}
+            />
           ),
         }}
       />
@@ -49,8 +57,12 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: Locale.strings("profile.profile"),
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="person.fill" color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <IconSymbol
+              size={28}
+              name={focused ? "person.fill" : "person"}
+              color={color}
+            />
           ),
         }}
       />

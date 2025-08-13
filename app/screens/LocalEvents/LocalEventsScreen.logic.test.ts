@@ -1,3 +1,4 @@
+// @ts-ignore
 import { LocalEvent } from "@/app/models/event/Event";
 
 function toggleFavorite(
