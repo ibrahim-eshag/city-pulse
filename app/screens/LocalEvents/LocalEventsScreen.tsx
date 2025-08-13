@@ -14,11 +14,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Locale } from "@/app/locale";
 import { LocalEvent } from "@/app/models/event/Event";
 import { AppState } from "@/app/redux";
+import { AuthActions } from "@/app/redux/actions/auth";
 import { ConfigActions } from "@/app/redux/actions/config/ConfigActions";
 import { LocalEventActions } from "@/app/redux/actions/event/EventActions";
+import { AuthStorage } from "@/app/services/storage/auth";
 import { Storage } from "@/app/services/storage/storage";
 import { CityPicker } from "./components/CityPicker";
 import { LocalEventComponent } from "./components/LocalEvent";
+import UserWelcome from "./components/UserWelcome";
 import styles from "./styles";
 
 export default function LocalEventsScreen() {
@@ -35,6 +38,7 @@ export default function LocalEventsScreen() {
   const loading = useSelector(
     (state: AppState) => state.localEvents?.loading || false
   );
+  const { profile } = useSelector((state: AppState) => state.auth);
   const router = useRouter();
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
@@ -105,6 +109,16 @@ export default function LocalEventsScreen() {
     }
     await dispatch(LocalEventActions.updateFavorites(updated));
   };
+  useEffect(() => {
+    const loadProfile = async () => {
+      const token = await new Storage().get(AuthStorage.AUTH_TOKEN_KEY);
+      if (token) {
+        await dispatch(AuthActions.getProfile());
+      }
+    };
+    loadProfile();
+  }, [dispatch]);
+
   // Load favorites from storage on mount
   useEffect(() => {
     (async () => {
@@ -124,10 +138,12 @@ export default function LocalEventsScreen() {
   const handleSelectedCity = (dmaid: string) => {
     setSelectedDmaid(dmaid);
   };
+
   return (
     <View style={[styles.container]}>
       <SafeAreaView>
         <Text style={styles.title}>City Pulse</Text>
+        {profile?.full_name && <UserWelcome />}
         <View
           style={[
             styles.header,

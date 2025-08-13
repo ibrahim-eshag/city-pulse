@@ -16,18 +16,16 @@ export default function FavoriteEventsScreen() {
   );
   const router = useRouter();
   const lang = Locale.currentLocale;
-  const [language, setLanguage] = React.useState<"en" | "ar">(lang);
 
   const removeFavorite = (id: string) => {
     const updated = favorites.filter((event: LocalEvent) => event.id !== id);
     dispatch(LocalEventActions.updateFavorites(updated));
   };
 
-  console.log("Favorites:", favorites[0]);
   return (
     <View style={[styles.container]}>
       <SafeAreaView>
-        <Text style={styles.title}>Favourite Events</Text>
+        <Text style={styles.title}>{Locale.strings("favorites")}</Text>
         <FlatList
           data={favorites}
           keyExtractor={(item, index) => (item.id ? item.id : String(index))}
@@ -42,7 +40,7 @@ export default function FavoriteEventsScreen() {
                   params: { eventId: item.id },
                 });
               }}
-              language={language}
+              language={lang}
             />
           )}
         />

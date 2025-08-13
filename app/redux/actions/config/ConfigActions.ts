@@ -1,4 +1,5 @@
 import { Dispatch } from "@reduxjs/toolkit";
+import * as Updates from "expo-updates";
 
 import { Locale, LocalizationType } from "@/app/locale";
 import { LanguageStorage } from "@/app/services/storage/language/LanguageStorage";
@@ -13,6 +14,14 @@ export class ConfigActions {
       await Locale.setLocale(language);
 
       // restart the app
-      RNRestart.Restart();
+      if (RNRestart && typeof RNRestart.Restart === "function") {
+        RNRestart.Restart();
+      } else {
+        // it's running in environment that doesn't support RNRestart
+        console.warn("RNRestart is not available on this platform.");
+        if (Updates.reloadAsync) {
+          Updates.reloadAsync();
+        }
+      } //
     };
 }

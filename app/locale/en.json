@@ -42,6 +42,7 @@
   "registration": "Registration",
   "username": "Name",
   "gender": "Gender",
+  "welcome": "Welcome",
   "save": "Save",
   "logout": "Log out",
   "agreeToTermsAndConditions": "I agree to the terms and conditions",

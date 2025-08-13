@@ -1,6 +1,7 @@
 import { Storage } from "@/app/services/storage/storage";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { StatusBar } from "expo-status-bar";
+import * as Updates from "expo-updates";
 import { Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import {
@@ -49,13 +50,17 @@ const OTPScreen = (props) => {
   const handleFormSubmit = async (values: OTPType) => {
     const moveToMain = async () => {
       const account = await authStorage.getAccount();
-      console.log("Account from storage: ", account);
       if (account && account?.full_name?.length > 0) {
         console.log("should restart...");
         router.replace({
           pathname: "/",
         });
-        RNRestart.restart();
+        if (RNRestart && typeof RNRestart.Restart === "function") {
+          RNRestart.Restart();
+        } else {
+          console.warn("RNRestart is not available on this platform.");
+          Updates.reloadAsync();
+        }
       }
     };
 

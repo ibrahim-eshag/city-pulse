@@ -1,4 +1,5 @@
 import { Dispatch } from "@reduxjs/toolkit";
+import * as Updates from "expo-updates";
 
 import { ApiEndPoint } from "@/app/constants/api-endpoints";
 import { doNothing } from "@/app/models/utils/helpers/DoNothing";
@@ -159,13 +160,20 @@ export class AuthActions {
             error: response.data.message,
           });
         } else {
+          dispatch({
+            type: AuthActionType.SUCCESS,
+            token: undefined,
+            loggedIn: false,
+          });
+
           const storage = new Storage();
           await storage.clearStorage();
           if (RNRestart && typeof RNRestart.Restart === "function") {
             RNRestart.Restart();
           } else {
             console.warn("RNRestart is not available on this platform.");
-          } // Updates.reloadAsync();
+            Updates.reloadAsync();
+          }
         }
         cb(true);
       } catch (error: any) {
