@@ -126,8 +126,11 @@ export default function LocalEventsScreen() {
           ]}
         >
           <TextInput
-            style={styles.input}
-            placeholder={language === "en" ? "Search events" : "بحث"}
+            style={[
+              styles.input,
+              { textAlign: language === "ar" ? "right" : "left" },
+            ]}
+            placeholder={Locale.strings("search")}
             value={search}
             onChangeText={setSearch}
           />
@@ -191,6 +194,7 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 8,
     backgroundColor: "#f0f0f0",
+    justifyContent: "flex-start",
   },
   langBtn: {
     padding: 8,
