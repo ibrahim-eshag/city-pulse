@@ -25,11 +25,13 @@
   },
   "profile": {
     "profile": "Profile",
+    "loginPrompt": "Please log in",
     "editProfile": "Edit Profile",
     "male": "Male",
     "female": "Female",
     "logoutConfirm": "Confirm Logout?",
-    "updatedSuccess": "Profile updated Successfully."
+    "updatedSuccess": "Profile updated Successfully.",
+    "login": "Login"
   },
   "value": "Value",
   "SAR": "SAR",
@@ -45,6 +47,7 @@
   "pleaseAgreeToTermsAndConditions": "Please agree to the terms and conditions",
   "register": "Register",
   "birthDate": "Birth Date",
+  "otp": "OTP",
   "otpSentToNumber": "The OTP Was sent to the Number",
   "enterYourCode": "Enter Your Code",
   "continue": "Continue",

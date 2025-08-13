@@ -13,12 +13,14 @@
     "event": "الحدث"
   },
   "profile": {
+    "loginPrompt": "يرجى تسجيل الدخول",
     "profile": "الملف الشخصي",
     "editProfile": "تعديل المعلومات الشخصية",
     "male": "ذكر",
     "female": "أنثى",
     "logoutConfirm": "تأكيد تسجيل الخروج؟",
-    "updatedSuccess": "تم التحديث بنجاح"
+    "updatedSuccess": "تم التحديث بنجاح",
+    "login": "تسجيل الدخول"
   },
   "value": "القيمة",
   "SAR": "ريال",
@@ -35,6 +37,7 @@
   "register": "سجل حساب جديد",
   "birthDate": "تاريخ الملاد",
   "otpSentToNumber": "تم إرسال رمز الإستجابة للرقم",
+  "otp": "رمز الإستجابة",
   "enterYourCode": "أدخل رمز الإستجابة",
   "continue": "إستمر",
   "yes": "نعم",

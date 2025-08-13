@@ -18,7 +18,7 @@ import Store from "./redux";
 import SplashScreen from "./screens/SplashScreen";
 import { LanguageStorage } from "./services/storage/language";
 
-Splash.preventAutoHideAsync();
+// Splash.preventAutoHideAsync();
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [languageLoaded, setLanguageLoaded] = useState(false); // Track language initialization
@@ -50,6 +50,8 @@ export default function RootLayout() {
   useEffect(() => {
     // Initialize language on mount
     const initializeApp = async () => {
+      // const storage = new Storage();
+      // await storage.clearStorage();
       await initLanguage();
     };
     initializeApp();
@@ -63,7 +65,7 @@ export default function RootLayout() {
   }, [fontsLoaded, languageLoaded]);
 
   // Show custom splash until fonts and language are loaded
-  if (!fontsLoaded || !languageLoaded) {
+  if (!fontsLoaded) {
     console.log("Fonts or language not loaded yet");
     return <SplashScreen />;
   }
@@ -77,6 +79,20 @@ export default function RootLayout() {
             name="LocalEvents/[eventId]"
             options={{
               title: "Event Details",
+              headerBackTitle: "Back",
+            }}
+          />
+          <Stack.Screen
+            name="screens/MobileNumberScreen/index"
+            options={{
+              title: Locale.strings("mobileNumber"),
+              headerBackTitle: "Back",
+            }}
+          />
+          <Stack.Screen
+            name="screens/OTPScreen/index"
+            options={{
+              title: Locale.strings("otp"),
               headerBackTitle: "Back",
             }}
           />

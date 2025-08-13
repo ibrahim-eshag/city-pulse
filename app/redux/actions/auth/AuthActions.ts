@@ -5,7 +5,6 @@ import { doNothing } from "@/app/models/utils/helpers/DoNothing";
 import { ApiClient } from "@/app/services/api/api-client";
 import { AuthApi } from "@/app/services/api/auth/Auth.api";
 import {
-  LoginPayload,
   LoginSuccessResponse,
   RequestOTPPayload,
   UpdateProfilePayload,
@@ -37,10 +36,22 @@ export class AuthActions {
           mobile_number: "+971" + data.phone,
         };
 
-        const requestOtp = await ApiClient.post(
-          ApiEndPoint.auth.requestOtp,
-          requestData
-        );
+        // const requestOtp = await ApiClient.post(
+        //   ApiEndPoint.auth.requestOtp,
+        //   requestData
+        // );
+
+        // delay for 0.5 sec
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
+        // mockeup request
+        const requestOtp = {
+          status: 200,
+          data: {
+            message: "OTP sent successfully",
+          },
+        };
+
         console.log("RequestOtp: ", requestOtp);
         if (requestOtp.status !== 200 && requestOtp.data.message) {
           dispatch({
@@ -67,21 +78,39 @@ export class AuthActions {
     (data: LoginActionData, cb = doNothing) =>
     async (dispatch: Dispatch<AppAction>, getState: GetState) => {
       try {
+        console.log("welcome to login action");
         // check the internet connection
         await Internet.checkStatus();
         dispatch({ type: AuthActionType.ATTEMPT });
-        const requestData: LoginPayload = {
-          mobile_number: data.phone,
-          code: data.code,
+
+        // const response = await ApiClient.post(
+        //   ApiEndPoint.auth.login,
+        //   requestData
+        // );
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
+        // mockup login response
+        const date = new Date(Date.now() + 3600 * 1000); // January 1, 1990
+        const response = {
+          status: 200,
+          data: {
+            access_token: "mock_access_token",
+            account: {
+              account_id: "mock_account_id",
+              full_name: "John Doe",
+              email: "john.doe@example.com",
+              mobile: data.phone,
+              gender: 1,
+              date_of_birth: date.toISOString(),
+            },
+            expiration_date: new Date(Date.now() + 3600 * 1000).toDateString(), // 1 hour later
+            message: null,
+          },
         };
-        const response = await ApiClient.post(
-          ApiEndPoint.auth.login,
-          requestData
-        );
-        if (response.status !== 200 && response.data.message) {
+        if (response.status !== 200 && response.data?.message) {
           dispatch({
             type: AuthActionType.FAILED,
-            error: response.data.message,
+            error: response.data?.message,
           });
         } else {
           const data: LoginSuccessResponse = response.data;
@@ -93,7 +122,7 @@ export class AuthActions {
 
           // save account
           await authStorage.saveAccount(data.account);
-
+          console.log("success loginnnnnnn..");
           dispatch({
             type: AuthActionType.SUCCESS,
             token,
@@ -101,17 +130,6 @@ export class AuthActions {
           });
 
           cb(true);
-
-          // const updateNotificationToken =
-          //     NotificationsActions.updateTokenRemotely();
-          // await updateNotificationToken(dispatch, getState);
-
-          // const getSubscriptions = SubscriptionsActions.getSubscriptions();
-          // await getSubscriptions(dispatch, getState);
-          //
-          // const getCustomerSubscription =
-          //     SubscriptionsActions.getCustomerSubscription();
-          // await getCustomerSubscription(dispatch, getState);
         }
       } catch (error: any) {
         console.log("🚀 AuthActions ~ login ~ error:", error);
@@ -119,24 +137,42 @@ export class AuthActions {
       }
     };
 
-  static logout = () => async (dispatch: Dispatch<AppAction>) => {
-    try {
-      dispatch({ type: AuthActionType.ATTEMPT });
-      const response = await ApiClient.delete(ApiEndPoint.auth.logout);
+  static logout =
+    (cb = doNothing) =>
+    async (dispatch: Dispatch<AppAction>) => {
+      try {
+        dispatch({ type: AuthActionType.ATTEMPT });
+        // const response = await ApiClient.delete(ApiEndPoint.auth.logout);
+        await new Promise((resolve) => setTimeout(resolve, 500));
 
-      if (response.status !== 200 && response.data.message) {
-        dispatch({ type: AuthActionType.FAILED, error: response.data.message });
-      } else {
-        const storage = new Storage();
-        await storage.clearStorage();
-        RNRestart.Restart();
-        // Updates.reloadAsync();
+        // Mock response
+        const response = {
+          status: 200,
+          data: {
+            message: null,
+          },
+        };
+
+        if (response.status !== 200 && response.data.message) {
+          dispatch({
+            type: AuthActionType.FAILED,
+            error: response.data.message,
+          });
+        } else {
+          const storage = new Storage();
+          await storage.clearStorage();
+          if (RNRestart && typeof RNRestart.Restart === "function") {
+            RNRestart.Restart();
+          } else {
+            console.warn("RNRestart is not available on this platform.");
+          } // Updates.reloadAsync();
+        }
+        cb(true);
+      } catch (error: any) {
+        console.log("🚀 ~ AuthActions ~ logout= ~ error:", error);
+        dispatch({ type: AuthActionType.FAILED, error });
       }
-    } catch (error: any) {
-      console.log("🚀 ~ AuthActions ~ logout= ~ error:", error);
-      dispatch({ type: AuthActionType.FAILED, error });
-    }
-  };
+    };
 
   static getProfile =
     (cb = doNothing) =>
@@ -146,7 +182,25 @@ export class AuthActions {
         await Internet.checkStatus();
 
         dispatch({ type: AuthActionType.GET_PROFILE_ATTEMPT });
-        const response = await ApiClient.get(ApiEndPoint.profile.profile);
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
+        // const response = await ApiClient.get(ApiEndPoint.profile.profile);
+        const storage = new Storage();
+        const mobile = await storage.get("mobile_number");
+
+        const response = {
+          status: 200,
+          data: {
+            account_id: "mock_account_id",
+            full_name: "John Doe",
+            email: "email@gmail.com",
+            mobile: mobile,
+            gender: 1,
+            date_of_birth: new Date(
+              Date.now() - 3600 * 1000 * 24 * 365
+            ).toISOString(),
+          },
+        };
 
         if (response.status !== 200 && response.data.message) {
           dispatch({
