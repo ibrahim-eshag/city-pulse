@@ -1,4 +1,4 @@
-import { useRouter } from "expo-router";
+import { useNavigation, useRouter } from "expo-router";
 import React, { useCallback, useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -35,7 +35,7 @@ export default function LocalEventsScreen() {
     (state: AppState) => state.localEvents?.favorites || []
   );
   const [language, setLanguage] = useState<"en" | "ar">("en");
-
+  const navigation = useNavigation();
   // Helper to get city name from dmaid (assuming cities.json is available)
   const getCityName = (dmaid: string) => {
     if (!dmaid) return "";
@@ -141,7 +141,7 @@ export default function LocalEventsScreen() {
               onToggleFavorite={toggleFavorite}
               onPress={() => {
                 router.push({
-                  pathname: "/screens/LocalEvents/[eventId]",
+                  pathname: "/LocalEvents/[eventId]",
                   params: { eventId: item.id },
                 });
               }}

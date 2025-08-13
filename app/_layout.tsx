@@ -9,19 +9,18 @@ import * as Splash from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { I18nManager } from "react-native";
 import "react-native-reanimated";
-import RNRestart from "react-native-restart";
 import { Provider } from "react-redux";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { useEffect, useState } from "react";
 import { Locale, LocalizationList, LocalizationType } from "./locale";
 import Store from "./redux";
-import { AuthStorage } from "./services/storage/auth";
+import SplashScreen from "./screens/SplashScreen";
 import { LanguageStorage } from "./services/storage/language";
 
+Splash.preventAutoHideAsync();
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-  const [token, setToken] = useState<string | null>(null);
   const [languageLoaded, setLanguageLoaded] = useState(false); // Track language initialization
 
   const [fontsLoaded] = useFonts({
@@ -41,7 +40,7 @@ export default function RootLayout() {
 
       // Restart the app to apply the changes for Android, I had to
       // TODO: to fix this issue, without reloading the app
-      RNRestart.Restart();
+      // RNRestart.Restart();
     }
 
     await Locale.setLocale(languageKey);
@@ -52,22 +51,21 @@ export default function RootLayout() {
     // Initialize language on mount
     const initializeApp = async () => {
       await initLanguage();
-      const authStorage = new AuthStorage();
-      const foundToken = await authStorage.getToken();
-      setToken(foundToken);
-
-      // Only hide the splash screen when everything is set up
-      if (fontsLoaded && languageLoaded) {
-        await Splash.hideAsync();
-      }
     };
-
     initializeApp();
   }, [fontsLoaded, languageLoaded]);
 
-  if (!fontsLoaded) {
-    // Async font loading only occurs in development.
-    return null;
+  // Hide Expo splash right before showing main app
+  useEffect(() => {
+    if (fontsLoaded && languageLoaded) {
+      Splash.hideAsync();
+    }
+  }, [fontsLoaded, languageLoaded]);
+
+  // Show custom splash until fonts and language are loaded
+  if (!fontsLoaded || !languageLoaded) {
+    console.log("Fonts or language not loaded yet");
+    return <SplashScreen />;
   }
 
   return (
@@ -75,10 +73,17 @@ export default function RootLayout() {
       <Provider store={Store}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="LocalEvents/[eventId]"
+            options={{
+              title: "Event Details",
+              headerBackTitle: "Back",
+            }}
+          />
           <Stack.Screen name="+not-found" />
         </Stack>
-        <StatusBar style="auto" />
       </Provider>
+      <StatusBar style="auto" />
     </ThemeProvider>
   );
 }
