@@ -22,9 +22,15 @@ import styles from "./styles";
 
 export default function LocalEventsScreen() {
   const dispatch = useDispatch<any>();
-  const events = useSelector(
+  // Ensure events have unique IDs to avoid duplicate key warnings
+  const rawEvents = useSelector(
     (state: AppState) => state.localEvents?.localEvents || []
   );
+  const events = Array.isArray(rawEvents)
+    ? rawEvents.filter(
+        (event, idx, arr) => arr.findIndex((e) => e.id === event.id) === idx
+      )
+    : rawEvents;
   const loading = useSelector(
     (state: AppState) => state.localEvents?.loading || false
   );
