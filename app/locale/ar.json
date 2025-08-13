@@ -1,16 +1,6 @@
 {
   "search": "بحث...",
-  "settings": {
-    "settings": "الضبط",
-    "changeLanguage": "تغيير اللغة",
-    "darkTheme": "الوضع الداكن",
-    "notifications": "الإشعارات",
-    "contactUs": "اتصل بنا",
-    "termsAndConditions": "الأحكام والشروط",
-    "wallet": "المحفظة",
-    "balance": "الرصيد",
-    "debt": "المديونية"
-  },
+  "chooseCity": "اختر مدينة",
   "mobile": {
     "mobilePlaceholder": "أدخل رقم الجوال",
     "tip": "أدخل رقم الجوال",
@@ -23,6 +13,7 @@
     "event": "الحدث"
   },
   "profile": {
+    "profile": "الملف الشخصي",
     "editProfile": "تعديل المعلومات الشخصية",
     "male": "ذكر",
     "female": "أنثى",
@@ -51,6 +42,5 @@
   "deliveredThrough": "",
   "backHome": "العودة إلى الرئيسية",
   "about_us": "من نحن",
-  "our_services": "خدماتنا",
-  "home": "الرئيسية"
+  "our_services": "خدماتنا"
 }

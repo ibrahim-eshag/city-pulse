@@ -1,5 +1,6 @@
 {
   "search": "Search...",
+  "chooseCity": "Select City",
   "settings": {
     "settings": "Settings",
     "changeLanguage": "Change Language",
@@ -23,6 +24,7 @@
     "event": "Event"
   },
   "profile": {
+    "profile": "Profile",
     "editProfile": "Edit Profile",
     "male": "Male",
     "female": "Female",
@@ -52,6 +54,5 @@
   "redeemable": "Redeemable",
   "backHome": "Back to Home",
   "about_us": "About Us",
-  "our_services": "Our Services",
-  "home": "Home"
+  "our_services": "Our Services"
 }

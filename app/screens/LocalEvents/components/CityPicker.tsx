@@ -1,3 +1,4 @@
+import { Locale } from "@/app/locale";
 import cities from "@/data/cities.json";
 import { Picker } from "@react-native-picker/picker";
 import React, { useState } from "react";
@@ -32,11 +33,7 @@ export const CityPicker: React.FC<Props> = ({
         activeOpacity={0.7}
       >
         <Text style={styles.labelText} numberOfLines={1}>
-          {selectedCity
-            ? selectedCity.name
-            : language === "en"
-            ? "Select City"
-            : "اختر مدينة"}
+          {selectedCity ? selectedCity.name : Locale.strings("chooseCity")}
         </Text>
       </TouchableOpacity>
       <Modal
