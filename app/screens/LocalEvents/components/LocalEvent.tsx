@@ -1,13 +1,7 @@
+import { Locale } from "@/app/locale";
 import { LocalEvent } from "@/app/models/event/Event";
 import React from "react";
-import {
-  I18nManager,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 interface Props {
   event: LocalEvent;
@@ -28,10 +22,14 @@ export const LocalEventComponent: React.FC<Props> = ({
   const eventDate = event.dates?.start?.localDate;
   const eventTime = event.dates?.start?.localTime;
   const venue = event._embedded?.venues?.[0]?.name;
+  const lang = Locale.currentLocale;
 
   return (
     <TouchableOpacity
-      style={[styles.card, I18nManager.isRTL && styles.rtl]}
+      style={[
+        styles.card,
+        { flexDirection: lang === "en" ? "row" : "row-reverse" },
+      ]}
       onPress={onPress}
     >
       {mainImage && (
@@ -42,18 +40,22 @@ export const LocalEventComponent: React.FC<Props> = ({
         />
       )}
       <View style={styles.info}>
-        <Text style={styles.name} numberOfLines={1} ellipsizeMode="tail">
-          {event.name}
-        </Text>
-        <Text style={styles.details}>
-          {eventDate} {eventTime} {venue ? `• ${venue}` : ""}
-        </Text>
-        <TouchableOpacity
-          onPress={() => onToggleFavorite(event.id)}
-          style={styles.favorite}
-        >
-          <Text style={{ fontSize: 20 }}>{isFavorite ? "★" : "☆"}</Text>
-        </TouchableOpacity>
+        <View style={{ flexDirection: lang === "en" ? "row" : "row-reverse" }}>
+          <View style={{ width: "90%" }}>
+            <Text style={styles.name} numberOfLines={1} ellipsizeMode="tail">
+              {event.name}
+            </Text>
+            <Text style={styles.details}>
+              {eventDate} {eventTime} {venue ? `• ${venue}` : ""}
+            </Text>
+          </View>
+          <TouchableOpacity
+            onPress={() => onToggleFavorite(event.id)}
+            style={styles.favorite}
+          >
+            <Text style={{ fontSize: 20 }}>{isFavorite ? "★" : "☆"}</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -69,13 +71,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 6,
     elevation: 2,
-    flexDirection: "row",
     alignItems: "center",
     padding: 8,
   },
-  rtl: {
-    flexDirection: "row-reverse",
-  },
+
   image: {
     width: 80,
     height: 80,
@@ -85,8 +84,10 @@ const styles = StyleSheet.create({
   info: {
     flex: 1,
     justifyContent: "center",
+    marginHorizontal: 10,
   },
   name: {
+    justifyContent: "flex-start",
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 4,
@@ -98,9 +99,8 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   favorite: {
-    position: "absolute",
-    top: 0,
     right: 0,
+    top: 10,
     padding: 8,
   },
 });

@@ -1,9 +1,8 @@
-import { useNavigation, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import React, { useCallback, useEffect, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
-  I18nManager,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -13,7 +12,9 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
+import { Locale } from "@/app/locale";
 import { AppState } from "@/app/redux";
+import { ConfigActions } from "@/app/redux/actions/config/ConfigActions";
 import { LocalEventActions } from "@/app/redux/actions/event/EventActions";
 import { Storage } from "@/app/services/storage/storage";
 import { CityPicker } from "./components/CityPicker";
@@ -34,8 +35,10 @@ export default function LocalEventsScreen() {
   const favorites = useSelector(
     (state: AppState) => state.localEvents?.favorites || []
   );
-  const [language, setLanguage] = useState<"en" | "ar">("en");
-  const navigation = useNavigation();
+  const lang = Locale.currentLocale;
+
+  const [language, setLanguage] = useState<"en" | "ar">(lang);
+
   // Helper to get city name from dmaid (assuming cities.json is available)
   const getCityName = (dmaid: string) => {
     if (!dmaid) return "";
@@ -104,18 +107,24 @@ export default function LocalEventsScreen() {
   }, [dispatch]);
 
   const switchLanguage = () => {
-    setLanguage((l) => (l === "en" ? "ar" : "en"));
-    I18nManager.forceRTL(language === "en");
+    const newLang = language === "en" ? "ar" : "en";
+    dispatch(ConfigActions.setLanguage(newLang));
+    setLanguage(newLang);
   };
 
   const handleSelectedCity = (dmaid: string) => {
     setSelectedDmaid(dmaid);
   };
   return (
-    <View style={styles.container}>
+    <View style={[styles.container]}>
       <SafeAreaView>
         <Text style={styles.title}>City Pulse</Text>
-        <View style={styles.header}>
+        <View
+          style={[
+            styles.header,
+            language === "ar" && { flexDirection: "row-reverse" },
+          ]}
+        >
           <TextInput
             style={styles.input}
             placeholder={language === "en" ? "Search events" : "بحث"}
@@ -177,7 +186,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#eee",
   },
   input: {
-    flex: 1,
+    flex: 2,
     marginHorizontal: 4,
     padding: 8,
     borderRadius: 8,
