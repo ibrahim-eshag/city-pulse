@@ -76,22 +76,22 @@ export default function RootLayout() {
           <Stack.Screen
             name="screens/LocalEvents/[eventId]"
             options={{
-              title: "Event Details",
-              headerBackTitle: "Back",
+              title: Locale.strings("eventDetails"),
+              headerBackTitle: Locale.strings("back"),
             }}
           />
           <Stack.Screen
             name="screens/MobileNumberScreen/index"
             options={{
               title: Locale.strings("mobileNumber"),
-              headerBackTitle: "Back",
+              headerBackTitle: Locale.strings("back"),
             }}
           />
           <Stack.Screen
             name="screens/OTPScreen/index"
             options={{
               title: Locale.strings("otp"),
-              headerBackTitle: "Back",
+              headerBackTitle: Locale.strings("back"),
             }}
           />
           <Stack.Screen name="+not-found" />

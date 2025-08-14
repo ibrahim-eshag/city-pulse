@@ -43,6 +43,7 @@
   "gender": "Gender",
   "welcome": "Welcome",
   "save": "Save",
+  "eventDetails": "Event Details",
   "logout": "Log out",
   "no_favorites": "No favorite events",
   "agreeToTermsAndConditions": "I agree to the terms and conditions",
@@ -57,5 +58,6 @@
   "no": "No",
   "deliveredThrough": "Delivered through",
   "redeemable": "Redeemable",
+  "back": "Back",
   "backHome": "Back to Home"
 }
