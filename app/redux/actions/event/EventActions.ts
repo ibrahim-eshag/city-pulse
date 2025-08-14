@@ -1,11 +1,11 @@
 import { Storage } from "@/app/services/storage/storage";
+import { Dispatch } from "@reduxjs/toolkit";
 
 import { ApiEndPoint } from "@/app/constants/api-endpoints";
 import { LocalEvent } from "@/app/models/event/Event";
 import { doNothing } from "@/app/models/utils/helpers/DoNothing";
 import { ApiClient } from "@/app/services/api/api-client";
 import { Internet } from "@/app/services/network";
-import { Dispatch } from "@reduxjs/toolkit";
 import { AppAction, GetState } from "../types";
 import { LocalEventActionType } from "./types";
 
@@ -70,10 +70,7 @@ export class LocalEventActions {
         // Ticketmaster success: { _embedded: { events: [...] }, page: {...} }
         const events = response.data?._embedded?.events || [];
         const pageInfo = response.data?.page;
-        console.log(
-          "🚀  LocalEventActions[0] ~ listAllEvents ~ events:",
-          events[0]
-        );
+
         // Stop searching if no more results
         const isLastPage = pageInfo.number + 1 >= pageInfo.totalPages;
         if (pageInfo && (isLastPage || pageInfo.totalElements === 0)) {

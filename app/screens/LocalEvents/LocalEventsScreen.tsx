@@ -203,6 +203,11 @@ export default function LocalEventsScreen() {
             <Text>{language === "en" ? "AR" : "EN"}</Text>
           </TouchableOpacity>
         </View>
+        {!loading && events?.length === 0 && (
+          <Text style={styles.noEventsText}>
+            {Locale.strings("no_events_found")}
+          </Text>
+        )}
         <FlatList
           data={events}
           keyExtractor={(item, index) => (item.id ? item.id : String(index))}

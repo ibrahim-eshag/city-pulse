@@ -53,8 +53,8 @@ To make development less error prone TS has been used.
 
 
 ### 4-Optimization:
-to touch on this topic of optimization, the Home screen is designed to call the api on demand as the user scrolls and get 10 Events each time, append it to the previous ones.
-
+- to touch on this topic of optimization, the Home screen is designed to call the api on demand as the user scrolls and get 10 Events each time, append it to the previous ones.
+- Adding Debounce (Delaying) when searching with keywords. 
 ## Screenshots (Samples)
 ### 1-File structure
 ![file structure](screenshots/project-file-structure.png)

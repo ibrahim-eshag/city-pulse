@@ -33,6 +33,15 @@ const LocalEventsStyles = StyleSheet.create({
     borderRadius: 8,
     marginLeft: 8,
   },
+  noEventsText: {
+    textAlign: "center",
+    fontSize: 18,
+    color: "#888",
+    marginTop: 100,
+    height: "100%",
+    justifyContent: "center",
+    alignSelf: "center",
+  },
 });
 
 export default LocalEventsStyles;

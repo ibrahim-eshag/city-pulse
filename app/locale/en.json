@@ -59,5 +59,6 @@
   "deliveredThrough": "Delivered through",
   "redeemable": "Redeemable",
   "back": "Back",
-  "backHome": "Back to Home"
+  "backHome": "Back to Home",
+  "no_events_found": "No events found in this city"
 }

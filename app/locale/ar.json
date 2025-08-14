@@ -47,5 +47,6 @@
   "no": "لا",
   "deliveredThrough": "",
   "back": "رجوع",
-  "backHome": "العودة إلى الرئيسية"
+  "backHome": "العودة إلى الرئيسية",
+  "no_events_found": "لا توجد أحداث في هذه المدينة"
 }
