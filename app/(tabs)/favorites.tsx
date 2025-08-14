@@ -1,9 +1,9 @@
-import FavouriteEventsScreen from "../screens/FavouritesScreen";
+import FavoriteEventsScreen from "../screens/FavoritesScreen";
 
 export default function Favorites() {
   return (
     <>
-      <FavouriteEventsScreen />
+      <FavoriteEventsScreen />
     </>
   );
 }

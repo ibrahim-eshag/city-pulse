@@ -51,7 +51,7 @@ To make development less error prone TS has been used.
 ### 4-Optimization:
 to touch on this topic of optimization, the Home screen is designed to call the api on demand as the user scrolls and get 10 Events each time, append it to the previous ones.
 
-## Screenshots
+## Screenshots (Samples)
 ### 1-File structure
 ![file structure](screenshots/project-file-structure.png)
 
@@ -63,6 +63,9 @@ to touch on this topic of optimization, the Home screen is designed to call the 
 
 ### 4-Profile Screen
 ![Home Screen](screenshots/profile-screen.png)
+
+### 4-Favorites Screen
+![Home Screen](screenshots/favorites-screen.png)
 
 
 ### 4-Closing comments:
