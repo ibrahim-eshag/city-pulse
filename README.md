@@ -45,10 +45,13 @@ The default location is all cities provided by the API.
 ### 3-Target user geographic are:
 The user can be living or interested in Local events that are provided by the api, hence the user is only allowed to pick from the available cities/all of the USA.
 
+### 3-Events Vs Attractions:
+The API returns sometimes  attractions as part of the response, but what the app display is only the array inside the events property.
+
 ### 4-Handling state management:
 Redux has been used to be the state management solution, not because it's the perfect choice for the project, rather to show that we can scale in future and still cope with the ever changing requirements and enhancements without messing with thd global state.
 
-### 4-TS instate of js:
+### 5-TS instate of js:
 To make development less error prone TS has been used.
 
 
