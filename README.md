@@ -16,10 +16,14 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npx expo start
    ```
 
-### NOTE:
+
+
+2. Run the written unit tests
+
+   ```bash
+   npm test
    ```
-if you see error regarding describe function doesn't exist, just dismiss it.
-   ```
+
 
 
 In the output, you'll find options to open the app in a
@@ -69,4 +73,4 @@ to touch on this topic of optimization, the Home screen is designed to call the 
 
 
 ### 4-Closing comments:
--interceptors, and other features has been added to the project to demonstrate advanced topics. though there're many aspects that needs enhancements (e.g: handling RTL automatically, adding biometric login, Error with jest describe function etc.)
+-interceptors, and other features has been added to the project to demonstrate advanced topics. though there're many aspects that needs enhancements (e.g: handling RTL automatically, adding biometric login,Adding more tests etc.)
