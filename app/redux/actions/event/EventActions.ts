@@ -49,7 +49,7 @@ export class LocalEventActions {
         query.apikey = process.env.EXPO_PUBLIC_TICKETMASTER_API_KEY || "";
         if (cityName) query.city = cityName;
         if (keyword) query.keyword = keyword;
-
+        console.log("query::::", query);
         const endpoint = ApiEndPoint.localEvent.listLocalEvents;
         const response = await ApiClient.get(endpoint, { params: query });
 
@@ -69,10 +69,21 @@ export class LocalEventActions {
 
         // Ticketmaster success: { _embedded: { events: [...] }, page: {...} }
         const events = response.data?._embedded?.events || [];
+        const pageInfo = response.data?.page;
         console.log(
           "🚀  LocalEventActions[0] ~ listAllEvents ~ events:",
           events[0]
         );
+        // Stop searching if no more results
+        const isLastPage = pageInfo.number + 1 >= pageInfo.totalPages;
+        if (pageInfo && (isLastPage || pageInfo.totalElements === 0)) {
+          dispatch({
+            type: LocalEventActionType.LIST_FAILED,
+            error: "No events found",
+          });
+          cb(false);
+          return;
+        }
         if (events.length > 0) {
           // If page > 0, append; else, replace
           dispatch({

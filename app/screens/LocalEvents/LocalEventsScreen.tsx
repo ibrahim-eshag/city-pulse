@@ -16,6 +16,7 @@ import { LocalEvent } from "@/app/models/event/Event";
 import { AppState } from "@/app/redux";
 import { AuthActions } from "@/app/redux/actions/auth";
 import { ConfigActions } from "@/app/redux/actions/config/ConfigActions";
+import { LocalEventActionType } from "@/app/redux/actions/event";
 import { LocalEventActions } from "@/app/redux/actions/event/EventActions";
 import { AuthStorage } from "@/app/services/storage/auth";
 import { Storage } from "@/app/services/storage/storage";
@@ -39,7 +40,9 @@ export default function LocalEventsScreen() {
   const router = useRouter();
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [selectedDmaid, setSelectedDmaid] = useState<string>("");
+  const [hasMore, setHasMore] = useState(true);
   const favorites = useSelector(
     (state: AppState) => state.localEvents?.favorites || []
   );
@@ -59,37 +62,68 @@ export default function LocalEventsScreen() {
     }
   };
 
+  // Debounce search input
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 500);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [search]);
+
   // Fetch events: reset on new search/city/language, append on scroll
   const fetchEvents = useCallback(
     (reset = false) => {
       const params = {
         cityName: getCityName(selectedDmaid),
-        keyword: search,
+        keyword: debouncedSearch,
         page: reset ? 0 : page,
         pageSize: 10,
       };
-      dispatch(LocalEventActions.listAllEvents(params));
+      dispatch(
+        LocalEventActions.listAllEvents(params, (success: boolean) => {
+          if (!success) {
+            setHasMore(false);
+          } else {
+            setHasMore(true);
+          }
+        })
+      );
       if (reset) setPage(0);
     },
-    [dispatch, selectedDmaid, search, page]
+    [dispatch, selectedDmaid, debouncedSearch, page]
   );
 
   // Reset events on new search/city/language
   useEffect(() => {
+    setHasMore(true);
+    dispatch({
+      type: LocalEventActionType.LIST_SUCCESS,
+      localEvents: [],
+      append: false,
+    });
     fetchEvents(true);
-  }, [search, selectedDmaid, language]);
+  }, [debouncedSearch, selectedDmaid, language]);
 
   // Append events on scroll
   const loadMore = () => {
-    if (!loading) {
+    if (!loading && hasMore) {
       const nextPage = page + 1;
       dispatch(
-        LocalEventActions.listAllEvents({
-          cityName: getCityName(selectedDmaid),
-          keyword: search,
-          page: nextPage,
-          pageSize: 10,
-        })
+        LocalEventActions.listAllEvents(
+          {
+            cityName: getCityName(selectedDmaid),
+            keyword: search,
+            page: nextPage,
+            pageSize: 10,
+          },
+          (success: boolean) => {
+            if (!success) {
+              setHasMore(false);
+            }
+          }
+        )
       );
       setPage(nextPage);
     }
@@ -133,6 +167,7 @@ export default function LocalEventsScreen() {
   };
 
   const handleSelectedCity = (dmaid: string) => {
+    setPage(0);
     setSelectedDmaid(dmaid);
   };
 
@@ -154,7 +189,10 @@ export default function LocalEventsScreen() {
             ]}
             placeholder={Locale.strings("search")}
             value={search}
-            onChangeText={setSearch}
+            onChangeText={(text) => {
+              setPage(0);
+              setSearch(text);
+            }}
           />
           <CityPicker
             selectedDmaid={selectedDmaid}
