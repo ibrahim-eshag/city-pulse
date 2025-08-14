@@ -1,19 +1,14 @@
-import { useRouter } from "expo-router";
+import * as Splash from "expo-splash-screen";
 import LottieView from "lottie-react-native";
 import React, { useEffect } from "react";
+
 import { Dimensions, StyleSheet, View } from "react-native";
 const { width, height } = Dimensions.get("window");
 
 export default function SplashScreen() {
-  const router = useRouter();
-
   useEffect(() => {
-    // Auto-dismiss after 2.5 seconds
-    const timer = setTimeout(async () => {
-      router.replace("/");
-    }, 2500);
-    return () => clearTimeout(timer);
-  }, [router]);
+    Splash.hideAsync();
+  }, []);
 
   return (
     <View style={styles.container}>

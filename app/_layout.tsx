@@ -18,7 +18,7 @@ import Store from "./redux";
 import SplashScreen from "./screens/SplashScreen";
 import { LanguageStorage } from "./services/storage/language";
 
-// Splash.preventAutoHideAsync();
+Splash.hide();
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [languageLoaded, setLanguageLoaded] = useState(false); // Track language initialization
@@ -37,36 +37,34 @@ export default function RootLayout() {
       // Update RTL direction
       I18nManager.allowRTL(isRTL);
       I18nManager.forceRTL(isRTL);
-
-      // Restart the app to apply the changes for Android, I had to
-      // TODO: to fix this issue, without reloading the app
-      // RNRestart.Restart();
     }
 
+    await new Promise((resolve) => setTimeout(resolve, 3000)); // Example delay
     await Locale.setLocale(languageKey);
     setLanguageLoaded(true);
   };
 
   useEffect(() => {
-    // Initialize language on mount
-    const initializeApp = async () => {
-      // const storage = new Storage();
-      // await storage.clearStorage();
-      await initLanguage();
-    };
-    initializeApp();
+    // Only initialize language once when fonts are loaded and not yet initialized
+    if (!languageLoaded && fontsLoaded) {
+      (async () => {
+        await initLanguage();
+      })();
+    }
   }, [fontsLoaded, languageLoaded]);
 
   // Hide Expo splash right before showing main app
   useEffect(() => {
-    if (fontsLoaded && languageLoaded) {
-      Splash.hideAsync();
-    }
+    const hideSplash = async () => {
+      if (fontsLoaded && languageLoaded) {
+        Splash.hideAsync();
+      }
+    };
+    hideSplash();
   }, [fontsLoaded, languageLoaded]);
 
   // Show custom splash until fonts and language are loaded
-  if (!fontsLoaded) {
-    console.log("Fonts or language not loaded yet");
+  if (!fontsLoaded || !languageLoaded) {
     return <SplashScreen />;
   }
 

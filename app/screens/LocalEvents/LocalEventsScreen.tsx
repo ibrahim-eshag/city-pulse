@@ -27,17 +27,14 @@ import styles from "./styles";
 export default function LocalEventsScreen() {
   const dispatch = useDispatch<any>();
   // Ensure events have unique IDs to avoid duplicate key warnings
-  const rawEvents = useSelector(
-    (state: AppState) => state.localEvents?.localEvents || []
+  const { localEvents: rawEvents, loading } = useSelector(
+    (state: AppState) => state.localEvents || []
   );
   const events = Array.isArray(rawEvents)
     ? rawEvents.filter(
         (event, idx, arr) => arr.findIndex((e) => e.id === event.id) === idx
       )
     : rawEvents;
-  const loading = useSelector(
-    (state: AppState) => state.localEvents?.loading || false
-  );
   const { profile } = useSelector((state: AppState) => state.auth);
   const router = useRouter();
   const [page, setPage] = useState(0);
