@@ -45,12 +45,11 @@ export default function EventDetailsScreen() {
   // Get main image
   const mainImage =
     event.images && event.images.length > 0 ? event.images[0].url : undefined;
-  // Get date
   const date =
     event.dates?.start?.localDate || event.dates?.start?.dateTime || "";
-  // Get venue (from _embedded if available)
+
   const venue = event._embedded?.venues?.[0]?.name || "";
-  // Get description/info
+
   const description = event.info || event.pleaseNote || "";
 
   return (

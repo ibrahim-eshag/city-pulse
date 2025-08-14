@@ -4,7 +4,6 @@ import * as Updates from "expo-updates";
 import { ApiEndPoint } from "@/app/constants/api-endpoints";
 import { doNothing } from "@/app/models/utils/helpers/DoNothing";
 import { ApiClient } from "@/app/services/api/api-client";
-import { AuthApi } from "@/app/services/api/auth/Auth.api";
 import {
   LoginSuccessResponse,
   RequestOTPPayload,
@@ -267,18 +266,4 @@ export class AuthActions {
         dispatch({ type: AuthActionType.UPDATE_PROFILE_FAILED, error });
       }
     };
-
-  static deleteAccount = () => async (dispatch: Dispatch<AppAction>) => {
-    try {
-      await Internet.checkStatus();
-      dispatch({ type: AuthActionType.ATTEMPT });
-      const authApi = new AuthApi();
-      await authApi.deleteAccount();
-      const logout = this.logout();
-      logout(dispatch);
-    } catch (error: any) {
-      console.log("🚀 ~ AuthActions ~ deleteAccount ~ error:", error);
-      dispatch({ type: AuthActionType.FAILED, error });
-    }
-  };
 }

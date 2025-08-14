@@ -4,25 +4,14 @@ import Store from "@/app/redux";
 import { AuthStorage } from "@/app/services/storage/auth";
 import axios, {
   AxiosError,
-  // AxiosRequestConfig,
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
 
 const authStorage = new AuthStorage();
 
-const authHeader = () => ({
-  Authorization: `Bearer ${authStorage.getToken()}`,
-});
-
 const Client = axios.create({
   baseURL: ApiEndPoint.BASE_URL,
-  headers: {
-    // "X-App-Client-Id": "PUBLIC_APP",
-    // "X-App-Client-Secret":
-    //   "fdc127e7894a15e779c8bae05c1b3c5d5aed4eb4468b9c4e5c75f03ec39d7b2d",
-    // ...authHeader()
-  },
 });
 
 const requestSuccessInterceptor = (config: InternalAxiosRequestConfig) => {

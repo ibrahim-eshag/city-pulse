@@ -51,7 +51,6 @@ const OTPScreen = (props) => {
     const moveToMain = async () => {
       const account = await authStorage.getAccount();
       if (account && account?.full_name?.length > 0) {
-        console.log("should restart...");
         router.replace({
           pathname: "/",
         });
@@ -69,6 +68,9 @@ const OTPScreen = (props) => {
     );
   };
 
+  const isRTLTextAlignStyle = {
+    textAlign: lang === "ar" ? ("right" as "right") : ("left" as "left"),
+  };
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar style="auto" />
@@ -83,35 +85,14 @@ const OTPScreen = (props) => {
               },
             ]}
           >
-            <Text
-              style={[
-                styles.tip,
-                {
-                  textAlign: lang == "ar" ? "right" : "left",
-                },
-              ]}
-            >
+            <Text style={[styles.tip, isRTLTextAlignStyle]}>
               {Locale.strings("otpSentToNumber")}
             </Text>
-            <Text
-              style={[
-                styles.tip,
-                {
-                  textAlign: lang == "ar" ? "right" : "left",
-                },
-              ]}
-            >
+            <Text style={[styles.tip, isRTLTextAlignStyle]}>
               {mobileNumber}
             </Text>
           </View>
-          <Text
-            style={[
-              styles.smallTip,
-              {
-                textAlign: lang == "ar" ? "right" : "left",
-              },
-            ]}
-          >
+          <Text style={[styles.smallTip, isRTLTextAlignStyle]}>
             {Locale.strings("enterYourCode")}
           </Text>
           <Formik

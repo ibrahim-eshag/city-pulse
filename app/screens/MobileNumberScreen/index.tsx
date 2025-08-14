@@ -41,9 +41,6 @@ const MobileNumberScreen = (props) => {
     await dispatch(
       AuthActions.requestOtp({ phone: values.mobileNumber }, moveToOTP)
     );
-
-    // // Navigate to OTP screen
-    // navigation.navigate("OTP");
   };
 
   return (

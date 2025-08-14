@@ -24,7 +24,7 @@ export default function FavoriteEventsScreen() {
 
   return (
     <View style={[styles.container]}>
-      <SafeAreaView>
+      <SafeAreaView style={{ flex: 1, height: "100%" }}>
         <Text style={styles.title}>{Locale.strings("favorites")}</Text>
         {favorites.length === 0 && (
           <Text style={styles.emptyMessage}>
@@ -41,7 +41,7 @@ export default function FavoriteEventsScreen() {
               onToggleFavorite={() => removeFavorite(item.id)}
               onPress={() => {
                 router.push({
-                  pathname: "/LocalEvents/[eventId]",
+                  pathname: "/screens/LocalEvents/[eventId]",
                   params: { eventId: item.id },
                 });
               }}
@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f5f5f5",
+    height: "100%",
   },
   title: {
     textAlign: "center",
@@ -91,6 +92,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 18,
     color: "#666",
-    marginVertical: 20,
+    marginTop: "45%",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    width: "100%",
+    height: "100%",
   },
 });

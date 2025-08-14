@@ -15,7 +15,7 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 import { useEffect, useState } from "react";
 import { Locale, LocalizationList, LocalizationType } from "./locale";
 import Store from "./redux";
-import SplashScreen from "./screens/SplashScreen";
+import SplashScreen from "./screens/SpalshScreen/SplashScreen";
 import { LanguageStorage } from "./services/storage/language";
 
 Splash.hide();

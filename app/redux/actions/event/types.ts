@@ -1,3 +1,5 @@
+import { LocalEvent } from "@/app/models/event/Event";
+
 export enum LocalEventActionType {
   LIST_ATTEMPT = "EVENT_LIST_ATTEMPT",
   LIST_SUCCESS = "EVENT_LIST_SUCCESS",
