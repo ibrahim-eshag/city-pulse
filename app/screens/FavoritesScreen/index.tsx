@@ -26,6 +26,11 @@ export default function FavoriteEventsScreen() {
     <View style={[styles.container]}>
       <SafeAreaView>
         <Text style={styles.title}>{Locale.strings("favorites")}</Text>
+        {favorites.length === 0 && (
+          <Text style={styles.emptyMessage}>
+            {Locale.strings("no_favorites")}
+          </Text>
+        )}
         <FlatList
           data={favorites}
           keyExtractor={(item, index) => (item.id ? item.id : String(index))}
@@ -81,5 +86,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#eee",
     borderRadius: 8,
     marginLeft: 8,
+  },
+  emptyMessage: {
+    textAlign: "center",
+    fontSize: 18,
+    color: "#666",
+    marginVertical: 20,
   },
 });

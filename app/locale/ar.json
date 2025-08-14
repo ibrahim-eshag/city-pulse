@@ -23,12 +23,12 @@
     "login": "تسجيل الدخول"
   },
   "value": "القيمة",
-  "SAR": "ريال",
   "loading": "جاري التحميل...",
   "mobileNumber": "رقم الجوال",
   "email": "البريد الإلكتروني",
   "username": "الإسم",
   "gender": "الحنس",
+  "no_favorites": "لا توجد أحداث مفضلة",
   "save": "حفظ",
   "welcome": "مرحبًا ",
   "favorites": "المفضلة",
@@ -45,7 +45,5 @@
   "yes": "نعم",
   "no": "لا",
   "deliveredThrough": "",
-  "backHome": "العودة إلى الرئيسية",
-  "about_us": "من نحن",
-  "our_services": "خدماتنا"
+  "backHome": "العودة إلى الرئيسية"
 }

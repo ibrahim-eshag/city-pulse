@@ -1,7 +1,7 @@
-import { Pressable, Text, View } from "react-native";
-
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useState } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+
 import { Locale } from "../locale";
 import EditProfileScreen from "../screens/EditProfileScreen/EditProfileScreen";
 import { AuthStorage } from "../services/storage/auth";
@@ -12,7 +12,6 @@ export default function Profile() {
 
   useFocusEffect(
     useCallback(() => {
-      console.log("Profile screen focused");
       const checkLoginStatus = async () => {
         const authStorage = new AuthStorage();
         const foundToken = await authStorage.getToken();
@@ -32,17 +31,7 @@ export default function Profile() {
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
-          <Pressable
-            onPress={navigateToLogin}
-            style={{
-              padding: 10,
-              backgroundColor: "blue",
-              width: 150,
-              margin: 10,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+          <Pressable onPress={navigateToLogin} style={styles.pressable}>
             <Text style={{ color: "white" }}>
               {Locale.strings("profile.login")}
             </Text>
@@ -53,3 +42,13 @@ export default function Profile() {
     </>
   );
 }
+const styles = StyleSheet.create({
+  pressable: {
+    padding: 10,
+    backgroundColor: "blue",
+    width: 150,
+    margin: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});

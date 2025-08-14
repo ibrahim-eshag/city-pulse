@@ -34,7 +34,6 @@
     "login": "Login"
   },
   "value": "Value",
-  "SAR": "SAR",
   "favorites": "Favorites",
   "loading": "Loading...",
   "mobileNumber": "Mobile Number",
@@ -45,6 +44,7 @@
   "welcome": "Welcome",
   "save": "Save",
   "logout": "Log out",
+  "no_favorites": "No favorite events",
   "agreeToTermsAndConditions": "I agree to the terms and conditions",
   "pleaseAgreeToTermsAndConditions": "Please agree to the terms and conditions",
   "register": "Register",
@@ -57,7 +57,5 @@
   "no": "No",
   "deliveredThrough": "Delivered through",
   "redeemable": "Redeemable",
-  "backHome": "Back to Home",
-  "about_us": "About Us",
-  "our_services": "Our Services"
+  "backHome": "Back to Home"
 }

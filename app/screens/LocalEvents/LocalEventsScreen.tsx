@@ -175,7 +175,7 @@ export default function LocalEventsScreen() {
               onToggleFavorite={toggleFavorite}
               onPress={() => {
                 router.push({
-                  pathname: "/LocalEvents/[eventId]",
+                  pathname: "/screens/LocalEvents/[eventId]",
                   params: { eventId: item.id },
                 });
               }}

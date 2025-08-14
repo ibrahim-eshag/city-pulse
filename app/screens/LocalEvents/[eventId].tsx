@@ -1,5 +1,3 @@
-import { AppState } from "@/app/redux";
-import { LocalEventActions } from "@/app/redux/actions/event/EventActions";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
 import {
@@ -12,6 +10,9 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
+import { AppState } from "@/app/redux";
+import { LocalEventActions } from "@/app/redux/actions/event/EventActions";
+
 export default function EventDetailsScreen() {
   const { eventId } = useLocalSearchParams();
   const dispatch = useDispatch<any>();
@@ -21,7 +22,7 @@ export default function EventDetailsScreen() {
   const favorites = useSelector(
     (state: AppState) => state.localEvents.favorites || []
   );
-  const isFavorite = favorites.includes(eventId as string);
+  const isFavorite = favorites.some((fav: any) => fav.id === eventId);
 
   if (!event) {
     return (
@@ -32,11 +33,11 @@ export default function EventDetailsScreen() {
   }
 
   const toggleFavorite = () => {
-    let updated: string[];
+    let updated;
     if (isFavorite) {
-      updated = favorites.filter((f) => f !== eventId);
+      updated = favorites.filter((f) => f.id !== eventId);
     } else {
-      updated = [...favorites, eventId as string];
+      updated = [...favorites, event];
     }
     dispatch(LocalEventActions.updateFavorites(updated));
   };
