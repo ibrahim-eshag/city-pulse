@@ -3,7 +3,7 @@
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app). to demonstrate an artificial app that helps users. to discover events.
 
 ## Steps to run the app
-
+#### Assuming the knowledge of cloning a project from github, having an environment to run the app.
 1. Install dependencies
 
    ```bash
@@ -36,7 +36,7 @@ In the output, you'll find options to open the app in a
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
 ## Assumptions
-### 1-Expo not CLI:
+### 1-Expo not React-native CLI:
 Expo has been used for the project to accelerate the development.
 
 ### 2-Default location:
@@ -49,7 +49,7 @@ The user can be living or interested in Local events that are provided by the ap
 The API returns sometimes  attractions as part of the response, but what the app display is only the array inside the events property.
 
 ### 5-Handling state management:
-Redux has been used to be the state management solution, not because it's the perfect choice for the project, rather to show that we can scale in future and still cope with the ever changing requirements and enhancements without messing with thd global state.
+Redux has been used to be the state management solution, not because it's the perfect choice for the project, rather to show that we can scale in future and still cope with the ever changing requirements and enhancements without messing with the global state.
 
 ### 6-TS instate of js:
 To make development less error prone TS has been used.
@@ -76,4 +76,6 @@ To make development less error prone TS has been used.
 
 
 ### 4-Closing comments:
+-use any number that starts with 50 (no need to add the leading zero; i.e: 501111111 ) for login, and 4 digits otp (e.g: 1234).otherwise a validation error will appear to the user.
+
 -interceptors, and other features has been added to the project to demonstrate advanced topics. though there're many aspects that needs enhancements (e.g: handling RTL automatically, adding biometric login,Adding more tests etc.)
